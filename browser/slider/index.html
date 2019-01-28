@@ -31,5 +31,32 @@
       </div>
     </div>
   </section>
+  <script>
+
+  let img = document.getElementById('slider');
+  img.src = 'i/airmax.png';
+  let count = 0;
+
+  function show() {
+
+      switch (count){
+          case 0: img.src = 'i/airmax-top-view.png';
+          break;
+          case 1: img.src = 'i/airmax-jump.png';
+          break;
+          case 2: img.src = 'i/airmax-on-foot.png';
+          break;
+          case 3: img.src = 'i/airmax-playground.png';
+          break;
+          case 4: img.src = 'i/airmax.png';
+          count = -1;
+          break;
+      }
+      count++;
+  }
+
+    setInterval(show, 5000);
+
+  </script>
 </body>
 </html>
