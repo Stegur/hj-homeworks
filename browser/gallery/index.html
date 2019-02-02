@@ -55,25 +55,24 @@
     img.src = pics[count];
 
     nextBtn.onclick = function () {
-        img.src = pics[count];
         count++;
 
         if (count >= pics.length) {
             count = 0;
         }
+
+        img.src = pics[count];
     };
 
     prevBtn.onclick = function () {
-        img.src = pics[count];
         count--;
 
         if (count < 0) {
             count = pics.length - 1;
         }
+
+        img.src = pics[count];
     };
-
-
-
 
   </script>
 

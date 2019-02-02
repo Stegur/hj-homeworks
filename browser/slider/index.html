@@ -34,28 +34,31 @@
   <script>
 
   let img = document.getElementById('slider');
-  img.src = 'i/airmax.png';
-  let count = 0;
+
+  const images = [
+      'i/airmax-top-view.png',
+      'i/airmax-jump.png',
+      'i/airmax-on-foot.png',
+      'i/airmax-playground.png',
+      'i/airmax.png',
+  ];
+  let number = 0;
+  const imagesCount = images.length;
+
+  img.src = images[imagesCount - 1];
 
   function show() {
 
-      switch (count){
-          case 0: img.src = 'i/airmax-top-view.png';
-          break;
-          case 1: img.src = 'i/airmax-jump.png';
-          break;
-          case 2: img.src = 'i/airmax-on-foot.png';
-          break;
-          case 3: img.src = 'i/airmax-playground.png';
-          break;
-          case 4: img.src = 'i/airmax.png';
-          count = -1;
-          break;
+      img.src = images[number];
+
+      number++;
+      if (number >= imagesCount){
+          number = 0;
       }
-      count++;
+
   }
 
-    setInterval(show, 5000);
+  setInterval(show, 5000);
 
   </script>
 </body>
