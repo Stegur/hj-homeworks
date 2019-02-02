@@ -25,5 +25,102 @@
       <audio src=""></audio>
     </li>
   </ul>
+  <script>
+
+  // получение узлов
+  const piano = document.getElementsByClassName('set')[0];
+  const btns = piano.getElementsByTagName('li');
+  const audios = piano.getElementsByTagName('audio');
+
+  // цикл для установки событий на клавиши
+  for (let i = 0; i < btns.length; i++) {
+
+      btns[i].addEventListener('click', () => {
+          if (isClass('middle')) {
+              audios[i].src = middleSounds[i];
+              audios[i].play();
+          } else if (isClass('lower')) {
+              audios[i].src = lowerSounds[i];
+              audios[i].play();
+          } else if (isClass('higher')) {
+              audios[i].src = higherSounds[i];
+              audios[i].play();
+          }
+      })
+
+  }
+
+  // проверка наличия класса в узле
+  function isClass(className) {
+      return piano.classList.contains(className);
+  }
+
+  // установка нового класса 'higher' и удаление класса 'middle' при нажатой кнопке Alt
+  function altDown(event) {
+      if (event.altKey) {
+          piano.classList.add('higher');
+          piano.classList.remove('middle');
+      }
+  }
+
+  // удаление класса 'higher' и возврат класса 'middle' после воздействия на кнопку Alt
+  function altUp(event) {
+      if (event) {
+          piano.classList.remove('higher');
+          piano.classList.add('middle');
+      }
+  }
+
+  // установка нового класса 'lower' и удаление класса 'middle' при нажатой кнопке Shift
+  function shiftDown(event) {
+      if (event.shiftKey) {
+          piano.classList.add('lower');
+          piano.classList.remove('middle');
+      }
+  }
+
+  // удаление класса 'lower' и возврат класса 'middle' после воздействия на кнопку Shift
+  function shiftUp(event) {
+      if (event) {
+          piano.classList.remove('lower');
+          piano.classList.add('middle');
+      }
+  }
+
+  // установка событий при нажатии на клавиши и после этого
+  document.addEventListener('keydown', altDown);
+  document.addEventListener('keyup', altUp);
+
+  document.addEventListener('keydown', shiftDown);
+  document.addEventListener('keyup', shiftUp);
+
+  // аудио middle
+  const middleSounds = [
+      './sounds/middle/first.mp3',
+      './sounds/middle/second.mp3',
+      './sounds/middle/third.mp3',
+      './sounds/middle/fourth.mp3',
+      './sounds/middle/fifth.mp3',
+  ];
+
+  // аудио lower
+  const lowerSounds = [
+      './sounds/lower/first.mp3',
+      './sounds/lower/second.mp3',
+      './sounds/lower/third.mp3',
+      './sounds/lower/fourth.mp3',
+      './sounds/lower/fifth.mp3',
+  ];
+
+  // аудио higher
+  const higherSounds = [
+      './sounds/higher/first.mp3',
+      './sounds/higher/second.mp3',
+      './sounds/higher/third.mp3',
+      './sounds/higher/fourth.mp3',
+      './sounds/higher/fifth.mp3',
+  ];
+
+  </script>
 </body>
 </html>
