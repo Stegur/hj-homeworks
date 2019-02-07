@@ -44,5 +44,24 @@
       </div>
     </div>
   </div>
+  <script>
+
+    const buttons = document.getElementsByClassName('add');
+    let cartCount = document.getElementById('cart-count');
+    let cartPrice = document.getElementById('cart-total-price');
+
+    for (const btn of buttons){
+        btn.addEventListener('click', addToCart)
+    }
+
+    function addToCart(event) {
+        cartCount.innerText = +cartCount.innerText + 1;
+
+        let productPrice = Number(event.currentTarget.dataset.price);
+        let currentSum = Number(cartPrice.innerText.replace(' ', '')); // кажется излишне сложной конструкцией, можно проще?
+        cartPrice.innerText = getPriceFormatted(currentSum + productPrice);
+    }
+
+  </script>
 </body>
 </html>

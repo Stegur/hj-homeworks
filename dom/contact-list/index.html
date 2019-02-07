@@ -27,5 +27,20 @@
       </ul>
     </div>
   </div>
+  <script>
+
+    const contacts = JSON.parse(loadContacts());
+    const list = document.getElementsByClassName('contacts-list')[0];
+    list.innerHTML = '';
+
+    for (const contact of contacts) {
+        const li = document.createElement('li');
+        li.dataset.email = contact.email;
+        li.dataset.phone = contact.phone;
+        li.innerHTML = `<strong>${contact.name}</strong>`;
+        list.appendChild(li);
+    }
+
+  </script>
 </body>
 </html>
