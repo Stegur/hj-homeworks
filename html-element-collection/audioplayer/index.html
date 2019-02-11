@@ -40,56 +40,63 @@
   </div>
   <script>
 
-	const play = document.getElementsByClassName('fa-play')[0];
-	const pause = document.getElementsByClassName('fa-pause')[0];
-	const stop = document.getElementsByClassName('stop')[0];
-	const next = document.getElementsByClassName('next')[0];
-	const prev = document.getElementsByClassName('back')[0];
-	const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
-	const audio = mediaplayer.getElementsByTagName('audio')[0];
-	const name = mediaplayer.getElementsByClassName('title')[0];
+      const playstate = document.getElementsByClassName('playstate')[0];
+      const stop = document.getElementsByClassName('stop')[0];
+      const next = document.getElementsByClassName('next')[0];
+      const prev = document.getElementsByClassName('back')[0];
+      const mediaplayer = document.getElementsByClassName('mediaplayer')[0];
+      const audio = mediaplayer.getElementsByTagName('audio')[0];
+      const name = mediaplayer.getElementsByClassName('title')[0];
 
-	const mp3 = [
-	    './mp3/LA Chill Tour.mp3',
-		'./mp3/LA Fusion Jam.mp3',
-		'./mp3/This is it band.mp3',
-	];
+      const mp3 = [
+          {
+              link: './mp3/LA Chill Tour.mp3',
+              name: 'LA Chill Tour'
+          },
+          {
+              link: './mp3/LA Fusion Jam.mp3',
+              name: 'LA Fusion Jam'
+          },
+          {
+              link: './mp3/This is it band.mp3',
+              name: 'This is it band'
+          },
+      ];
 
-	let count = 0;
-    audio.src = mp3[count];
+      let count = 0;
+      audio.src = mp3[count].link;
 
-    play.onclick = function() {
-      audio.play();
-      mediaplayer.classList.add('play');
-      name.title = mp3[count].split('/')[2].split('.')[0];
-    };
+      playstate.onclick = function () {
+          audio.paused ? audio.play() : audio.pause();
+          mediaplayer.classList.toggle('play');
+          getTitle()
+      };
 
-    pause.onclick = function() {
-        audio.pause();
-        mediaplayer.classList.remove('play');
-    };
+      stop.onclick = function () {
+          audio.pause();
+          audio.currentTime = 0;
+          mediaplayer.classList.remove('play')
+      };
 
-    stop.onclick = function() {
-        audio.pause();
-        audio.currentTime = 0;
-        mediaplayer.classList.remove('play')
-    };
+      next.onclick = function () {
+          count >= mp3.length - 1 ? count = 0 : count++;
+          getSrc();
+          getTitle();
+      };
 
-    next.onclick = function() {
-        count >= mp3.length -1 ? count = 0 : count++;
-        audio.src = mp3[count];
-        audio.play();
-        mediaplayer.classList.add('play');
-        name.title = mp3[count].split('/')[2].split('.')[0];
-    };
+      prev.onclick = function () {
+          count <= 0 ? count = mp3.length - 1 : count--;
+          getSrc();
+          getTitle();
+      };
 
-    prev.onclick = function() {
-        count <= 0 ? count = mp3.length - 1 : count--;
-        audio.src = mp3[count];
-        audio.play();
-        mediaplayer.classList.add('play');
-        name.title = mp3[count].split('/')[2].split('.')[0];
-    };
+      function getTitle() {
+		  return name.title = mp3[count].name;
+      }
+
+      function getSrc() {
+          return audio.src = mp3[count].link;
+      }
 
   </script>
 </body>
