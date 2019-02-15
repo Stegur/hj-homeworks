@@ -29,5 +29,33 @@
     </ul>
     <h3>Выполнено задач: <output></output></h3>
   </fieldset>
+<script>
+
+  const list = document.querySelectorAll('input[type=checkbox]');
+  const done = document.querySelector('.list-block');
+  const output = document.querySelector('output');
+  let amount = 0;
+
+  list.forEach(box => {
+      box.addEventListener('change', count);
+      box.addEventListener('DOMContentLoaded', loadCount)
+  });
+
+  function loadCount(event) {
+      event.currentTarget.checked ? amount++ : null;
+      output.innerHTML = `${amount} из ${list.length}`;
+  }
+
+  function count(event){
+
+      event.currentTarget.checked ? amount++ : amount--;
+
+      output.innerHTML = `${amount} из ${list.length}`;
+
+      amount === list.length ? done.classList.add('complete') : done.classList.remove('complete');
+  }
+
+
+</script>
 </body>
 </html>

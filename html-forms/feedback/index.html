@@ -93,5 +93,70 @@
   </main>
 
   <script src="https://use.fontawesome.com/70378a66b8.js"></script>
+<script>
+
+	const form = document.getElementsByClassName('contentform')[0];
+	const inputs = form.getElementsByTagName('input');
+	const zip = document.querySelector('input[name=zip]');
+	const textarea = form.getElementsByTagName('textarea')[0];
+	const sentBtn = document.getElementsByClassName('button-contact')[0];
+	const editBtn = document.getElementsByClassName('button-contact')[1];
+	const msg = document.getElementById('output');
+
+	// вешаем обработчик событий на каждый input
+	for (let input of inputs) {
+	    input.addEventListener('input', validate);
+	}
+
+    // вешаем обработчик событий на textarea
+	textarea.addEventListener('input', validate);
+
+    // вешаем обработчик событий на «Почтовый индекс»
+	zip.addEventListener('input', isNumbers);
+
+    // вешаем обработчик событий на «Отправить сообщение»
+    sentBtn.addEventListener('click', pressSent);
+
+    // вешаем обработчик событий на «Изменить сообщение»
+    editBtn.addEventListener('click', editForm);
+
+    // проверка наличия текста в полях ввода
+	function validate(){
+        Array.from(inputs).every(input => input.value !== '') && textarea.value !== '' ? sentBtn.disabled = false : sentBtn.disabled = true;
+	}
+
+	// обработчик «Почтовый индекс»
+	function isNumbers(){
+		const regex = /\D+/g;
+        zip.value = zip.value.replace(regex, '')
+	}
+
+	// обработчик кнопки «Отправить сообщение»
+	function pressSent(event) {
+		event.preventDefault();
+		form.classList.add('hidden');
+        msg.classList.remove('hidden');
+
+        for (let input of inputs) {
+            let field = document.getElementById(input.name);
+			if (field === null){
+                continue; // обработка поля email
+			} else {
+                field.innerText = input.value;
+			}
+
+            document.getElementById('message').innerText = textarea.value
+        }
+    }
+
+    // обработчик кнопки «Изменить сообщение»
+    function editForm(event) {
+        event.preventDefault();
+        form.classList.remove('hidden');
+        msg.classList.add('hidden');
+    }
+
+
+</script>
 </body>
 </html>

@@ -19,4 +19,64 @@
 
   <div id="loader" class="hidden">Загрузка...</div>
 </body>
+<script>
+
+  const result = document.getElementById('result');
+  const loader = document.getElementById('loader');
+  const content = document.getElementById('content');
+  const source = document.getElementById('source');
+  const from = document.querySelector('#from');
+  const to = document.querySelector('#to');
+
+
+
+  source.addEventListener('input', count);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://neto-api.herokuapp.com/currency', true);
+  xhr.send();
+  xhr.addEventListener('loadstart', onLoadStart);
+  xhr.addEventListener('loadend', onLoadEnd);
+
+  function onLoadStart() {
+      loader.classList.remove('hidden')
+  }
+
+  function onLoadEnd() {
+      const data = JSON.parse(xhr.responseText);
+
+      for (let i = 0; i < data.length; i++) {
+          let option1 = document.createElement('option');
+          option1.text = data[i].code;
+          option1.dataset.code = data[i].code;
+          option1.dataset.title = data[i].title;
+          option1.dataset.value = data[i].value;
+
+          let option2 = document.createElement('option');
+          option2.text = data[i].code;
+          option2.dataset.code = data[i].code;
+          option2.dataset.title = data[i].title;
+          option2.dataset.value = data[i].value;
+
+          from.appendChild(option1);
+          to.appendChild(option2);
+      }
+
+      loader.classList.add('hidden');
+      content.classList.remove('hidden');
+  }
+
+  function count(event) {
+      for (let i = 0; i < from.length; i++) {
+          for (let j = 0; j < to.length; j++) {
+              let first = from[i];
+              let second = to[j];
+              if (first.selected && second.selected) {
+                  result.innerText = (first.dataset.value / second.dataset.value * event.currentTarget.value).toFixed(2);
+              }
+          }
+      }
+  }
+
+</script>
 </html>
