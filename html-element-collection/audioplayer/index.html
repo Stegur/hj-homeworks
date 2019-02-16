@@ -82,12 +82,14 @@
           count >= mp3.length - 1 ? count = 0 : count++;
           getSrc();
           getTitle();
+          audio.paused ? audio.pause() : audio.play();
       };
 
       prev.onclick = function () {
           count <= 0 ? count = mp3.length - 1 : count--;
           getSrc();
           getTitle();
+          audio.paused ? audio.pause() : audio.play();
       };
 
       function getTitle() {
