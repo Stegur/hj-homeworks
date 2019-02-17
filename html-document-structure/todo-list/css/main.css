@@ -104,7 +104,7 @@ body {
 }
 
 .todo-list label:hover,
-.todo-list input:ac­tive {
+.todo-list input:active {
   background-color: rgba(255, 255, 255, .2);
 }
 
