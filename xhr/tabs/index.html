@@ -27,22 +27,28 @@
     const email = nav.getElementsByTagName('a')[0];
     const sms = nav.getElementsByTagName('a')[1];
 
-    const emailXHR = email.href;
-    const smsXHR = sms.href;
-
     const content = document.getElementById('content');
     const preloader = document.getElementById('preloader');
 
-    email.addEventListener('click', showEmailForm);
-    sms.addEventListener('click', showSmsForm);
+    email.addEventListener('click', showForm);
+    sms.addEventListener('click', showForm);
 
-    function showEmailForm(event) {
+    function showForm(event) {
         event.preventDefault();
-        email.classList.add('active');
-        sms.classList.remove('active');
+
+        let link;
+        if (event.currentTarget.innerText === 'Email') {
+            link = email.href;
+            email.classList.add('active');
+            sms.classList.remove('active');
+        } else if (event.currentTarget.innerText === 'SMS') {
+            link = sms.href;
+            sms.classList.add('active');
+            email.classList.remove('active');
+        }
 
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', emailXHR, true);
+        xhr.open('GET', link, true);
         xhr.addEventListener('load', onLoad);
         xhr.send();
 
@@ -55,26 +61,7 @@
         }
     }
 
-    function showSmsForm(event) {
-        event.preventDefault();
-        sms.classList.add('active');
-        email.classList.remove('active');
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', smsXHR, true);
-        xhr.addEventListener('load', onLoad);
-        xhr.send();
-
-        function onLoad() {
-            if (!xhr.responseText) {
-                preloader.classList.remove('hidden')
-            } else {
-                content.innerHTML = xhr.responseText;
-            }
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', showEmailForm)
+    document.addEventListener('DOMContentLoaded', showForm)
 
   </script>
 </body>
