@@ -34,9 +34,9 @@
 
   const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://neto-api.herokuapp.com/currency', true);
-  xhr.send();
   xhr.addEventListener('loadstart', onLoadStart);
   xhr.addEventListener('loadend', onLoadEnd);
+  xhr.send();
 
   function onLoadStart() {
       loader.classList.remove('hidden')

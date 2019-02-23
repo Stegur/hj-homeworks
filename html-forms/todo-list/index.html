@@ -34,22 +34,14 @@
   const list = document.querySelectorAll('input[type=checkbox]');
   const done = document.querySelector('.list-block');
   const output = document.querySelector('output');
-  let amount = 0;
 
   list.forEach(box => {
       box.addEventListener('change', count);
-      box.addEventListener('DOMContentLoaded', loadCount)
+      box.addEventListener('DOMContentLoaded', count)
   });
 
-  function loadCount(event) {
-      event.currentTarget.checked ? amount++ : null;
-      output.innerHTML = `${amount} из ${list.length}`;
-  }
-
   function count(event){
-
-      event.currentTarget.checked ? amount++ : amount--;
-
+      let amount = document.querySelectorAll('input[type=checkbox]:checked').length;
       output.innerHTML = `${amount} из ${list.length}`;
 
       amount === list.length ? done.classList.add('complete') : done.classList.remove('complete');
