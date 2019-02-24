@@ -1,28 +1,17 @@
-const done = document.querySelector('.done');
-const undone = document.querySelector('.undone');
+const todoList = document.querySelector('.todo-list');
+const done = todoList.querySelector('.done');
+const undone = todoList.querySelector('.undone');
+const checks = todoList.getElementsByTagName('input');
 
-// const doneList = done.getElementsByTagName('label');
-const itemsList = document.querySelectorAll('label');
 
-for (item of itemsList) {
-    item.addEventListener('click', add)
+for (let check of checks) {
+    check.addEventListener('click', add);
 }
-
-// for (undoneItem of undoneList) {
-//     undoneItem.addEventListener('click', add)
-// }
 
 function add(event) {
-    const current = event.currentTarget;
-    console.log(current)
-
-    if (current.firstElementChild.checked) {
-        undone.appendChild(current);
+    if (event.currentTarget.checked) {
+        undone.appendChild(event.target.parentElement);
     } else {
-        done.appendChild(current);
+        done.appendChild(event.target.parentElement);
     }
-
 }
-
-// console.log(itemsList)
-// console.log(undoneList)
