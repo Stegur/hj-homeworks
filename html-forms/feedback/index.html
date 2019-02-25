@@ -103,6 +103,9 @@
 	const editBtn = document.getElementsByClassName('button-contact')[1];
 	const msg = document.getElementById('output');
 
+    // вешаем обработчик событий на «Почтовый индекс»
+    zip.addEventListener('input', isNumbers);
+
 	// вешаем обработчик событий на каждый input
 	for (let input of inputs) {
 	    input.addEventListener('input', validate);
@@ -110,9 +113,6 @@
 
     // вешаем обработчик событий на textarea
 	textarea.addEventListener('input', validate);
-
-    // вешаем обработчик событий на «Почтовый индекс»
-	zip.addEventListener('input', isNumbers);
 
     // вешаем обработчик событий на «Отправить сообщение»
     sentBtn.addEventListener('click', pressSent);
@@ -122,7 +122,11 @@
 
     // проверка наличия текста в полях ввода
 	function validate(){
-        Array.from(inputs).every(input => input.value !== '') && textarea.value !== '' ? sentBtn.disabled = false : sentBtn.disabled = true;
+        if (Array.from(inputs).every(input => input.value !== '') && textarea.value !== '') {
+            sentBtn.disabled = false;
+		} else {
+            sentBtn.disabled = true;
+		}
 	}
 
 	// обработчик «Почтовый индекс»

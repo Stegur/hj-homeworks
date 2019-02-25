@@ -36,6 +36,7 @@
   xhr.open('GET', 'https://neto-api.herokuapp.com/currency', true);
   xhr.addEventListener('loadstart', onLoadStart);
   xhr.addEventListener('loadend', onLoadEnd);
+  xhr.addEventListener('loadend', count);
   xhr.send();
 
   function onLoadStart() {
@@ -43,23 +44,13 @@
   }
 
   function onLoadEnd() {
-      const data = JSON.parse(xhr.responseText);
+      const currency = JSON.parse(xhr.responseText);
 
-      for (let i = 0; i < data.length; i++) {
-          let option1 = document.createElement('option');
-          option1.text = data[i].code;
-          option1.dataset.code = data[i].code;
-          option1.dataset.title = data[i].title;
-          option1.dataset.value = data[i].value;
+      for (let i = 0; i < currency.length; i++) {
+          let option = `<option value="${currency[i].value}" label="${currency[i].code}">${currency[i].title}</option>`;
 
-          let option2 = document.createElement('option');
-          option2.text = data[i].code;
-          option2.dataset.code = data[i].code;
-          option2.dataset.title = data[i].title;
-          option2.dataset.value = data[i].value;
-
-          from.appendChild(option1);
-          to.appendChild(option2);
+          from.innerHTML += option;
+          to.innerHTML += option;
       }
 
       loader.classList.add('hidden');
