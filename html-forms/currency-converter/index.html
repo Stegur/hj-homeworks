@@ -28,8 +28,6 @@
   const from = document.querySelector('#from');
   const to = document.querySelector('#to');
 
-
-
   source.addEventListener('input', count);
 
   const xhr = new XMLHttpRequest();
@@ -58,12 +56,13 @@
   }
 
   function count(event) {
-      for (let i = 0; i < from.length; i++) {
-          for (let j = 0; j < to.length; j++) {
-              let first = from[i];
-              let second = to[j];
+      const num = source.value;
+      for (let i = 0; i < from.children.length; i++) {
+          for (let j = 0; j < to.children.length; j++) {
+              let first = from.children[i];
+              let second = to.children[j];
               if (first.selected && second.selected) {
-                  result.innerText = (first.dataset.value / second.dataset.value * event.currentTarget.value).toFixed(2);
+                  result.innerText = (first.value / second.value * num).toFixed(2);
               }
           }
       }
