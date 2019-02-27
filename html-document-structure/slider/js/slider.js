@@ -20,11 +20,11 @@ function click(event) {
 
     let currentSlide = list.querySelector('.slide-current');
 
-    if (action === 'next') {
+    if (currentSlide !== currentSlide.parentElement.lastElementChild && action === 'next') {
         currentSlide.classList.remove('slide-current');
         currentSlide = currentSlide.nextElementSibling;
         currentSlide.classList.add('slide-current');
-    } else if (action === 'prev') {
+    } else if (currentSlide !== currentSlide.parentElement.firstElementChild && action === 'prev') {
         currentSlide.classList.remove('slide-current');
         currentSlide = currentSlide.previousElementSibling;
         currentSlide.classList.add('slide-current');

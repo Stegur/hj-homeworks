@@ -10,8 +10,8 @@ for (let check of checks) {
 
 function add(event) {
     if (event.currentTarget.checked) {
-        undone.appendChild(event.target.parentElement);
-    } else {
         done.appendChild(event.target.parentElement);
+    } else {
+        undone.appendChild(event.target.parentElement);
     }
 }

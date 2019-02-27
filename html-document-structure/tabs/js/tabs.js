@@ -1,34 +1,32 @@
-const menu = document.querySelector('.tabs-nav');
-const menuLi = menu.querySelector('li');
+const tabs = document.querySelector('#tabs');
+const menu = tabs.querySelector('.tabs-nav');
+const menuLi = tabs.querySelector('li');
 
-const content = document.querySelector('.tabs-content');
-const contentBlock = content.children;
+const content = tabs.querySelector('.tabs-content');
+const articles = content.querySelectorAll('article');
 
-function getMenu() {
-    for (let block of contentBlock) {
-        const menuEl = menu.appendChild(menuLi.cloneNode(true));
-        menuEl.children[0].innerText = block.dataset.tabTitle;
-        menuEl.children[0].class.add(block.dataset.tabIcon);
-        block.classList.add('hidden');
-    }
+
+for (let article of articles) {
+    const tabsMenu = menu.appendChild(menuLi.cloneNode(true));
+    tabsMenu.children[0].innerText = article.dataset.tabTitle;
+    tabsMenu.children[0].classList.add(article.dataset.tabIcon);
+    article.classList.add('hidden');
 }
 
+menuLi.parentElement.removeChild(menuLi.parentElement.children[0]);
+articles[0].classList.remove('hidden');
+articles[0].classList.add('ui-tabs-active');
 
 
-for (let link of menu.children) {
-    link.addEventListener('click', event => {
-        event.preventDefault();
-        for (let li of menu.children) {
-            li.classList.remove('ui-tabs-active');
+Array.from(menu.children).forEach((el, i) => {
+    el.addEventListener('click', (event) => {
+        for (let item of menu.children) {
+            item.classList.remove('ui-tabs-active');
         }
-        event.target.parentElement.classList.add('ui-tabs-active');
-        for (let block of contentBlock) {
-            block.classList.remove('ui-tabs-active');
-            block.classList.add('hidden');
-            if (event.target.firstChild.data == block.dataset.tabTitle) {
-                block.classList.remove('hidden');
-                block.classList.add('ui-tabs-active');
-            }
+        event.currentTarget.classList.add('ui-tabs-active');
+        for (let article of articles) {
+            article.classList.add('hidden');
         }
-    });
-}
+        articles[i].classList.remove('hidden');
+    })
+});
